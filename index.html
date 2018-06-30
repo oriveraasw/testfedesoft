@@ -11,25 +11,79 @@
 <body>
   <div class="container">
   <div class="container">
-        <h1> Hello Mr. bootstrap!!! </h1>
+        <h1> Adivinalo!!</h1>
   </div>
     <div class="container">
-      <h2> Good Morning!!!! </h2>
+      <h2> Adivina el número </h2>
+      <p>
+        Tenemos que seleccionar un numero entre 1 y 10
+        Puedes adivinar en menos de 5 turnos
+
+      </p>
   </div>
 </div>
 
 <div class="container">
-  <div class="row">
-      <div class="col-sm">
-        Columna 1
-      </div>
-      <div class="col-sm">
-        Columna 2
-      </div>
-      <div class="col-sm">
-        Columna 3
-      </div>
-  </div>
+<div class="form">
+  <label for="guessField">Ingrese su numero: </label>
+  <input type="text" id = "guessField" class="guessfield">
+  <input type="submit" value="Enviar" class="guessSubmit" >
 </div>
+
+<div class="resultados">
+  <p class="numeros">Los numeros que has intentado: </p>
+  <p class="ultimo_resultado"></p>
+  <p class="pista"></p>
+</div>
+</div>
+
+<script type="text/javascript">
+
+  // Calcular el numero a adivinar
+  var numero = Math.floor(Math.random()*10);
+  var intentos = 0;
+  var guessField = document.querySelector('#guessField');
+  var ultimo_resultado = document.querySelector(".ultimo_resultado");
+  var numeros = document.querySelector(".numeros");
+  var pistas = document.querySelector(".pista");
+  var boton_enviar = document.querySelector(".guessSubmit");
+
+  guessField.focus();
+
+  function checkNumero(){
+    var numero_usuario = Number(guessField.value);
+    if(numero_usuario === numero ) {
+      ultimo_resultado.textContent = 'Felicidades!!! Ese es el numero';
+      ultimo_resultado.style.backgroundColor = 'green';
+      pistas.textContent = '';
+      console.log("el valor es igual");
+    }
+    else {
+      {
+        var men = '';
+        if (numero_usuario < numero) {
+          men = ' mayor.';
+        }
+        else {
+          men = ' menor.';
+        }
+        ultimo_resultado.textContent = 'Pailas!!! no lo adivinaste.';
+        ultimo_resultado.style.backgroundColor = 'red';
+        pistas.textContent = 'Pista: el numero es ' + men;
+        numeros.textContent += ' ' + numero_usuario;
+        console.log("No es igual");
+      }
+    }
+
+    intentos++;
+    console.log("Lleva " + intentos + " Intento(s)");
+
+  }
+
+  boton_enviar.addEventListener('click', checkNumero);
+
+</script>
+
+
 </body>
 </html>
