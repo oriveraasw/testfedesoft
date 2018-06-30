@@ -47,6 +47,7 @@
   var numeros = document.querySelector(".numeros");
   var pistas = document.querySelector(".pista");
   var boton_enviar = document.querySelector(".guessSubmit");
+  var reinicio = '';
 
   guessField.focus();
 
@@ -78,6 +79,35 @@
     intentos++;
     console.log("Lleva " + intentos + " Intento(s)");
 
+    if(intentos === 5) {
+      ultimo_resultado.textContent =" Has Perdido :( ";
+      ultimo_resultado.style.backgroundColor = 'red';
+      finaldejuego();
+    }
+
+    guessField.value = '';
+
+  }
+
+  function finaldejuego(){
+    guessField.disabled = true;
+    boton_enviar.disabled = true;
+
+    reinicio = document.createElement('button');
+    reinicio.textContent = "Reiniciar";
+    document.body.appendChild(reinicio);
+    reinicio.addEventListener('click',reiniciar);
+
+  }
+
+  function reiniciar()
+  {
+    guessField.disabled = false;
+    boton_enviar.disabled = false;
+    ultimo_resultado.textContent = '';
+    numeros.textContent = "Numeros que has intendado: ";
+    guessField.value = '';
+    pistas.textContent = '';
   }
 
   boton_enviar.addEventListener('click', checkNumero);
